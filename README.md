@@ -1,48 +1,38 @@
-# Project Name
+# Heart Rate and SpO2 Measurement
 
-Briefly introduce your project and provide an overview of its purpose and goals.
+The Heart Rate and SpO2 Measurements Project is a software application that allows users to monitor and track their heart rate and blood oxygen saturation levels. It aims to provide a convenient and accessible solution for individuals who want to keep a close eye on their vital signs for health and wellness purposes.
 
 ## Table of Contents
 
+- [Components](#components)
 - [Features](#features)
-- [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
+
+## Components
+
+- Arduino Nano
+- MAX30102
+- LCD 16*2
+- Potentiometer 10K
 
 ## Features
 
-List the main features and functionalities of your project. Highlight the key capabilities that make it unique or valuable.
-
-## Getting Started
-
-Provide instructions on how to get the project up and running on a local machine. Include any prerequisites or dependencies that need to be installed, along with the installation process. Provide clear and concise steps to ensure a smooth setup.
+- **Real-time Heart Rate Monitoring**: The project enables users to monitor their heart rate in real-time, providing immediate feedback on their cardiovascular health status.
+- **SpO2 Measurement**: The application also measures the blood oxygen saturation level (SpO2), which indicates the oxygen levels in the bloodstream. This feature helps users assess their respiratory well-being.
 
 ## Usage
 
-Describe how to use your project. Provide examples and code snippets to demonstrate the different use cases and functionalities. Explain any command-line options, environment variables, or configuration settings that users should be aware of.
+To get started with the Heart Rate and SpO2 Measurements Project, follow these steps:
+
+1. Turn on the device.
+2. Put your finger on the sensor.
+3. Wait a while then the heart rate and SpO2 measurments will appear on the LCD screen.
 
 ## Configuration
 
-If your project requires configuration or customization, explain how users can modify the project's settings to suit their needs. Provide details about the configuration files, their locations, and the options available.
+The Heart Rate and SpO2 Measurements Project provides configuration options for users to personalize their experience. These options may include:
 
-## Contributing
-
-If you're open to contributions, include guidelines for how others can contribute to your project. Specify the preferred method for submitting bug reports, feature requests, or pull requests. Clearly outline any coding standards, guidelines, or formatting conventions that contributors should follow.
-
-## License
-
-Specify the license under which your project is released. Provide a brief description of the license and include any necessary disclaimers or attributions.
-
-## Additional Sections (Optional)
-
-Depending on your project, you may consider adding the following sections to your documentation:
-
-- **Deployment**: If your project is meant to be deployed to a server or a cloud platform, provide instructions on how to deploy it.
-- **Troubleshooting**: Include a section with common issues users might encounter and their solutions.
-- **API Reference**: If your project has an API, you can include a detailed API reference or link to a separate API documentation.
-- **Examples**: Provide additional examples or tutorials to help users understand and utilize your project more effectively.
-- **FAQ**: Compile a list of frequently asked questions and their answers.
-
-Remember to update and expand your documentation as your project evolves. Writing clear, concise, and well-structured documentation will greatly benefit both you and your project's users.
+- **Threshold Customization**: Adjust the heart rate and SpO2 thresholds according to individual preferences or medical recommendations.
+- **Measurement Interval**: Set the frequency of heart rate and SpO2 measurements, determining how often the application records readings.
+- **Sensor Calibration**: Calibrate the heart rate and SpO2 sensor for accurate measurements based on personal factors or environmental conditions.
