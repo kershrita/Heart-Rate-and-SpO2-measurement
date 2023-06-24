@@ -25,9 +25,12 @@ The Heart Rate and SpO2 Measurements Project is a software application that allo
 
 To get started with the Heart Rate and SpO2 Measurements Project, follow these steps:
 
-1. Turn on the device.
-2. Put your finger on the sensor.
-3. Wait a while then the heart rate and SpO2 measurments will appear on the LCD screen.
+1. Open your Arduino IDE.
+2. Make sure that you have been installed SparkFun MAX3010x Pulse and Proximity Sensor Library in your IDE [you can find it in this repository if you want to install it manually].
+3. Select board, in our case Arduino Nano.
+4. Connect Arduino Nano to the computer then upload the code
+5. Make sure that you are wiring like in the circuit image.
+6. Put your finger on the sensor, wait some seconds then the measurments will appear in the LCD screen.
 
 ## Configuration
 
