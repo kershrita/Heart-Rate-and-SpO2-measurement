@@ -31,10 +31,10 @@ To get started with the Heart Rate and SpO2 Measurements Project, follow these s
 
 ## Components
 
-- Arduino Nano
-- MAX30102
-- LCD 16*2
-- Potentiometer 10K
+- 1 * Arduino Nano
+- 1 * MAX30102
+- 1 * LCD 16*2
+- 1 * Potentiometer 10K
 
 ## Usage
 
