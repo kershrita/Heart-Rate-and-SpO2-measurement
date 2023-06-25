@@ -25,7 +25,7 @@ To get started with the Heart Rate and SpO2 Measurements Project, follow these s
 4. Connect Arduino Nano to the computer then upload the code
 5. Make sure that you are wiring like in the circuit image.
 
-<center>![Circuit Diagram](circuit.jpg)</center>
+[Circuit Diagram](circuit.jpg)
 
 6. Put your finger on the sensor, wait some seconds then the measurments will appear in the LCD screen.
 
