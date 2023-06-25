@@ -4,24 +4,18 @@ The Heart Rate and SpO2 Measurements Project is a software application that allo
 
 ## Table of Contents
 
-- [Components](#components)
 - [Features](#features)
+- [Getting Started](#getting-started)
+- [Components](#components)
 - [Usage](#usage)
 - [Configuration](#configuration)
-
-## Components
-
-- Arduino Nano
-- MAX30102
-- LCD 16*2
-- Potentiometer 10K
 
 ## Features
 
 - **Real-time Heart Rate Monitoring**: The project enables users to monitor their heart rate in real-time, providing immediate feedback on their cardiovascular health status.
 - **SpO2 Measurement**: The application also measures the blood oxygen saturation level (SpO2), which indicates the oxygen levels in the bloodstream. This feature helps users assess their respiratory well-being.
 
-## Usage
+## Getting Started
 
 To get started with the Heart Rate and SpO2 Measurements Project, follow these steps:
 
@@ -31,6 +25,21 @@ To get started with the Heart Rate and SpO2 Measurements Project, follow these s
 4. Connect Arduino Nano to the computer then upload the code
 5. Make sure that you are wiring like in the circuit image.
 6. Put your finger on the sensor, wait some seconds then the measurments will appear in the LCD screen.
+
+## Components
+
+- Arduino Nano
+- MAX30102
+- LCD 16*2
+- Potentiometer 10K
+
+## Usage
+
+Once the Heart Rate and SpO2 Measurements application is up and running, users can take advantage of the following functionalities:
+
+- **Real-time Monitoring**: View your heart rate and SpO2 readings in real-time on the LCD screen.
+
+- **Threshold Settings**: Set personal thresholds for heart rate and SpO2 levels. Receive alerts or notifications if readings fall outside the specified range.
 
 ## Configuration
 
