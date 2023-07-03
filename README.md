@@ -17,7 +17,7 @@ The Heart Rate and SpO2 Measurements Project is a software application that allo
 
 To get started with the Heart Rate and SpO2 Measurements Project, follow these steps:
 
-1. Assemble the components together as shown in the circuit diagram
+1. Assemble the components together as shown in the circuit diagram:
 ![Circuit Diagram](circuit.jpg)
 2. Components:
 	- 1 * Arduino Nano
