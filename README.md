@@ -1,77 +1,148 @@
-# Heart Rate and SpO2 Measurement
+# Heart Rate and SpO2 Measurement System
 
-The Heart Rate and SpO2 Measurements Project is a software application that allows users to monitor and track their heart rate and blood oxygen saturation levels. It aims to provide a convenient and accessible solution for individuals who want to keep a close eye on their vital signs for health and wellness purposes.
+> Embedded AI-enabled vital-sign monitoring pipeline for real-time heart rate and SpO2 estimation on Arduino Nano using MAX30102 photoplethysmography (PPG) sensing.
 
-## Table of Contents
+## Overview
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Configuration](#configuration)
-- [Acknowledgments](#acknowledgments)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+This project implements an end-to-end edge system that acquires optical biosignals, computes heart rate and oxygen saturation, validates signal quality, and renders metrics on a local display with no cloud dependency.
 
-## Installation
+It is designed for practical prototyping of low-cost health-monitoring devices where latency, simplicity, and offline operation matter.
 
-To get started with the Heart Rate and SpO2 Measurements Project, follow these steps:
+Primary engineering goals:
+- Reliable PPG signal acquisition from MAX30102 (red + IR channels)
+- Deterministic on-device inference using a fixed-size sample window
+- User feedback and fail-safe behavior when measurement conditions are invalid
 
-1. Assemble the components together as shown in the circuit diagram:
-![Circuit Diagram](circuit.jpg)
-2. Components:
-	- 1 * Arduino Nano
-	- 1 * MAX30102
-	- 1 * LCD 16*2
-	- 1 * Potentiometer 10K
-3. Clone or Download the repository to your local machine using the following command:
-```
-git clone https://github.com/kershrita/Heart-Rate-and-SpO2-measurement.git
-```
-4. Open your Arduino IDE.
-5. Make sure that you have been installed [SparkFun MAX3010x Pulse and Proximity](SparkFun_MAX3010x_Pulse_and_Proximity_Sensor_Library.rar) Library in your IDE.
-6. Select board, in our case Arduino Nano.
-7. Connect Arduino Nano to the computer then upload the code.
+Real-world use cases:
+- At-home wellness monitoring prototypes
+- Education and lab demonstrations for biomedical signal processing
+- Baseline reference implementation for wearable or bedside IoT productization
 
-## Usage
+## Architecture
 
-Once the Heart Rate and SpO2 Measurements application is up and running:
+The system follows a streaming edge-compute architecture:
 
-1. Put your finger on the sensor, wait some seconds then the measurments will appear.
-2. Users can take advantage of the real-time monitoring. View your heart rate and SpO2 readings in real-time on the LCD screen.
+Input sensing -> Signal buffering -> Algorithmic estimation -> Output rendering
+
+Component breakdown:
+- Input Layer: MAX30102 captures red/IR light absorption data over I2C
+- Processing Layer: firmware maintains 100-sample buffers for red and IR channels
+- AI/Algorithm Layer: SpO2 and heart-rate estimation via Maxim algorithm routine
+- Validation Layer: confidence flags gate output publication (validHeartRate, validSPO2)
+- Presentation Layer: 16x2 LCD displays SPO2/HR or No Finger state
+
+Design decisions:
+- Edge-only computation avoids network latency and privacy exposure
+- Fixed buffer length enables predictable memory and timing on microcontrollers
+- Finger-detection threshold prevents false readings during low-contact conditions
+
+## Architecture Diagram
+
+![Heart Rate and SpO2 Measurement System Architecture](assets/Heart%20Rate%20and%20SpO2%20Measurement%20System%20Architecture.png)
+
+Diagram description:
+1. Sensor Node: MAX30102 acquires Red + IR PPG stream
+2. Transport: I2C data transfer to Arduino Nano
+3. Buffering Block: rolling arrays of 100 samples per channel
+4. Estimation Block: maxim_heart_rate_and_oxygen_saturation()
+5. Validation Gate: validHeartRate AND validSPO2 checks
+6. UI Output: LCD prints SPO2 and HR, or No Finger fallback state
 
 ## Features
 
-- **Real-time Heart Rate Monitoring**: The project enables users to monitor their heart rate in real-time, providing immediate feedback on their cardiovascular health status.
-- **SpO2 Measurement**: The application also measures the blood oxygen saturation level (SpO2), which indicates the oxygen levels in the bloodstream. This feature helps users assess their respiratory well-being.
-- **Heart Rate Monitoring**: Heart rate measurement determines the number of heartbeats per minute. It helps track heart rate variations during rest, exercise, or sleep, providing insights into overall cardiovascular health and fitness levels.
+- Real-time heart-rate and SpO2 measurement on embedded hardware
+- Finger-presence detection to reduce invalid output states
+- Deterministic batch estimation from synchronized red/IR samples
+- Local LCD telemetry for standalone operation
+- Hardware-friendly implementation for low-power microcontroller platforms
 
-## Configuration
+## Technical Highlights
 
-The Heart Rate and SpO2 Measurements Project provides configuration options for users to personalize their experience. These options may include:
+- Signal quality gating: display updates only occur when both validity flags are true
+- Embedded pipeline design: acquisition, inference, and rendering are coordinated in one control loop
+- Throughput-oriented sensor setup: high sample rate and averaging tuned for robust capture
+- Resource-aware implementation: static buffers and compact data types for constrained RAM
+- Failure-path handling: explicit No Finger state improves operational safety and usability
 
-- **Threshold Customization**: Adjust the heart rate and SpO2 thresholds according to individual preferences or medical recommendations.
-- **Measurement Interval**: Set the frequency of heart rate and SpO2 measurements, determining how often the application records readings.
-- **Sensor Calibration**: Calibrate the heart rate and SpO2 sensor for accurate measurements based on personal factors or environmental conditions.
+## Tech Stack
 
-## Acknowledgments
+- Hardware: Arduino Nano, MAX30102 sensor, 16x2 LCD, 10K potentiometer
+- Firmware: Arduino C/C++
+- Communication: I2C (Wire)
+- Libraries:
+	- MAX30105 sensor driver
+	- spo2_algorithm (Maxim integrated routine)
+	- LiquidCrystal
+- Tooling: Arduino IDE
+- Circuit design asset: Fritzing file in repository
 
-We would like to acknowledge the following resources and libraries that have been instrumental in developing Heart Rate and SpO2 Measurement:
+## Getting Started
 
-- **[Arduino IDE](https://www.arduino.cc/en/software)**:  An open-source integrated development environment (IDE) used for programming Arduino boards.
-- **[SparkFun MAX3010x Pulse and Proximity](SparkFun_MAX3010x_Pulse_and_Proximity_Sensor_Library.rar)**: are compact, low-power sensors capable of measuring heart rate, blood oxygen saturation (SpO2), and proximity detection. These modules are commonly used in wearable health monitoring devices and fitness trackers.
+### Prerequisites
 
-## Contributing
+- Arduino IDE installed
+- Board: Arduino Nano selected in IDE
+- Sensor library available in IDE (see bundled library archive in repository)
 
-Contributions to the Heart Rate and SpO2 Measurement are welcome! If you have any ideas, improvements, or bug fixes, feel free to open an issue or submit a pull request. Your contributions can help enhance the project and make it more accessible and reliable for others.
+### Hardware Setup
 
+1. Assemble components according to the circuit reference.
+2. Use the BOM:
+	 - 1x Arduino Nano
+	 - 1x MAX30102
+	 - 1x LCD 16x2
+	 - 1x 10K potentiometer
+
+Circuit references:
+- Circuit image: assets/circuit.jpg
+- Editable design: Fritzing Circuit.fzz
+
+### Circuit Design
+
+![Heart Rate and SpO2 Circuit Design](assets/circuit.jpg)
+
+Circuit design description:
+- Arduino Nano reads MAX30102 via I2C (SDA/SCL)
+- MAX30102 provides red/IR PPG signals for SpO2 and HR estimation
+- 16x2 LCD is driven by digital pins for local telemetry
+- 10K potentiometer is used for LCD contrast tuning
+
+### Firmware Deployment
+
+```bash
+git clone https://github.com/kershrita/Heart-Rate-and-SpO2-measurement.git
+cd Heart-Rate-and-SpO2-measurement
+```
+
+1. Open code/code.ino in Arduino IDE.
+2. Install required libraries if not already present.
+3. Connect Arduino Nano via USB.
+4. Compile and upload.
+
+### Runtime Flow
+
+1. Place finger on sensor.
+2. Wait for buffer fill and validity checks.
+3. Read SPO2 and HR on LCD when stable; No Finger appears when contact is insufficient.
+
+## Results
+
+Current repository demonstrates functional real-time measurement on-device with:
+- Continuous PPG acquisition from red and IR channels
+- On-board computation of SpO2 and heart-rate estimates
+- Validity-gated LCD display outputs
+
+Evaluation note:
+- This repo focuses on embedded system integration and live inference.
+- It does not currently include a labeled benchmark dataset, statistical error report, or clinical-grade validation protocol.
+
+## Model Details
+
+- Model Type: deterministic physiological signal-processing algorithm (not a trained neural network)
+- Selection Rationale: suitable for constrained hardware and real-time execution
+- Inference Strategy: windowed estimation over synchronized red/IR signal buffers
+- Quality Control: validity flags and finger-presence thresholding to suppress noisy states
 
 ## License
 
-Heart Rate and SpO2 Measurement is released under the [MIT License](LICENSE).
-
-## Contact
-
-- Mail: ashrafabdulkhaliq80@gmail.com
-- LinkedIn: https://www.linkedin.com/in/ashraf-abdulkhaliq
-- GitHub: https://github.com/kershrita
+Released under the MIT License. See LICENSE for details.
